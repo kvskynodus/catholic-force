@@ -6,6 +6,80 @@ Este README explica **todas as linhas** dos três arquivos do projeto. Os númer
 
 O código foi dividido em **6 blocos**, e cada bloco foi desenvolvido por um integrante da equipe.
 
+## Como adicionar as imagens
+
+As fotos **não estão no repositório**. Sem elas, o site funciona, mas os cards mostram só um fundo rosa-escuro no lugar da foto. Para colocar as imagens:
+
+### Passo 1 — Criar a pasta `img`
+
+Crie uma pasta chamada **`img`** (tudo minúsculo) **ao lado** do `index.html`:
+
+```
+catholic-force/
+├── index.html
+├── style.css
+├── script.js
+├── README.md
+└── img/              ← crie esta pasta
+    ├── banner.png
+    ├── whey.png
+    └── ...
+```
+
+### Passo 2 — Salvar as fotos com os nomes exatos
+
+O código procura cada foto **pelo nome do arquivo**. O nome precisa ser **exatamente** este, com letras minúsculas, hífen e extensão `.png`:
+
+| Nome do arquivo | Onde aparece | Tamanho sugerido |
+|---|---|---|
+| `banner.png` | Banner "Oferta do dia" da home | 1600 × 600 px (horizontal) |
+| `whey.png` | Whey Protein Isolado 900g | 800 × 800 px (quadrada) |
+| `whey-concentrado.png` | Whey Concentrado 1kg | 800 × 800 px |
+| `whey-hidrolisado.png` | Whey Hidrolisado 900g | 800 × 800 px |
+| `proteina-vegana.png` | Proteína Vegana C.F.G 900g | 800 × 800 px |
+| `beef-protein.png` | Beef Protein Carnívoro 900g | 800 × 800 px |
+| `albumina.png` | Albumina Premium 500g | 800 × 800 px |
+| `creatina.png` | Creatina Monohidratada 300g | 800 × 800 px |
+| `pretreino.png` | Pré-Treino Apocalypse 300g | 800 × 800 px |
+| `camiseta.png` | Camiseta de Compressão C.F.G | 800 × 800 px |
+| `coqueteleira.png` | Coqueteleira Inox C.F.G | 800 × 800 px |
+
+As fotos são cortadas automaticamente para caber no espaço (`object-fit: cover` / `background-size: cover`), então não precisam ter o tamanho exato. Deixe o produto **centralizado**, com um pouco de margem em volta, para nada importante ser cortado. No banner, deixe o **lado esquerdo mais limpo**, porque é onde fica o texto.
+
+**Exportando do Figma:** selecione a imagem ou o frame → no painel da direita, em **Export**, clique em **+** → escolha **PNG** e **2x** → clique em **Export** → renomeie o arquivo para o nome da tabela e mova para a pasta `img/`.
+
+### Passo 3 — Conferir
+
+Abra o `index.html` no navegador e atualize com **Ctrl + F5**. Se alguma foto não aparecer:
+
+1. Aperte **F12** → aba **Console**. Uma mensagem como `404 (Not Found) img/whey.png` mostra qual arquivo não foi encontrado.
+2. Confira se o nome está **idêntico**. `Whey.png`, `whey.PNG` e `whey.png.png` são nomes diferentes; o Windows costuma esconder a extensão, então ative em *Explorador de Arquivos → Exibir → Extensões de nomes de arquivos*. No Windows, letras maiúsculas e minúsculas até funcionam, mas **na internet (GitHub Pages, hospedagem) não funcionam**.
+3. Confira se a pasta está no lugar certo: `img/` ao lado do `index.html`, e não dentro de outra pasta.
+
+### Passo 4 — Enviar para o GitHub
+
+```bash
+git add img
+git commit -m "Adiciona imagens dos produtos"
+git push
+```
+
+### Quero usar outro nome ou formato (`.jpg`, `.webp`)
+
+- **Produtos:** troque o campo `foto` do produto em `script.js` (L6–L25). Exemplo: `foto: "whey.png"` → `foto: "whey.jpg"`. O caminho `img/` é colocado automaticamente pela função `tagImagem` (`script.js` L61–L63).
+- **Banner:** troque `url("img/banner.png")` em `style.css` (L102).
+
+### Quero adicionar um produto novo com foto
+
+Coloque a imagem em `img/` (ex.: `luva.png`) e acrescente um objeto na lista `produtos` em `script.js`:
+
+```js
+{ id: "luva", nome: "Luva de Treino C.F.G", tipo: "Acessórios", grupo: "acessorios", nota: 4.8, preco: 49.90, foto: "luva.png", opcoes: false,
+  descricao: "Luva com palma emborrachada para mais firmeza na pegada." }
+```
+
+Ele aparece sozinho na categoria escolhida em `grupo`. Lembre de colocar uma **vírgula** depois do produto anterior.
+
 ## Equipe e divisão em blocos
 
 | Bloco | Responsável | Parte do sistema | Arquivo e linhas |
@@ -34,6 +108,7 @@ Como os blocos se encaixam:
 
 ## Sumário
 
+- [Como adicionar as imagens](#como-adicionar-as-imagens)
 - [Equipe e divisão em blocos](#equipe-e-divisão-em-blocos)
 
 1. [Como rodar o projeto](#1-como-rodar-o-projeto)
@@ -55,21 +130,7 @@ Como os blocos se encaixam:
 
 1. Baixe/clone a pasta.
 2. Abra o arquivo `index.html` no navegador (duplo clique já funciona).
-3. (Opcional) Crie uma pasta `img/` ao lado do `index.html` com as fotos dos produtos e do banner. Os nomes esperados são:
-
-| Arquivo              | Usado em                           |
-|----------------------|------------------------------------|
-| `banner.png`         | Banner "Oferta do dia" da home     |
-| `whey.png`           | Whey Protein Isolado 900g          |
-| `whey-concentrado.png` | Whey Concentrado 1kg             |
-| `whey-hidrolisado.png` | Whey Hidrolisado 900g            |
-| `proteina-vegana.png`| Proteína Vegana C.F.G 900g         |
-| `beef-protein.png`   | Beef Protein Carnívoro 900g        |
-| `albumina.png`       | Albumina Premium 500g              |
-| `creatina.png`       | Creatina Monohidratada 300g        |
-| `pretreino.png`      | Pré-Treino Apocalypse 300g         |
-| `camiseta.png`       | Camiseta de Compressão C.F.G       |
-| `coqueteleira.png`   | Coqueteleira Inox C.F.G            |
+3. (Opcional) Adicione as fotos na pasta `img/`, seguindo o guia [Como adicionar as imagens](#como-adicionar-as-imagens).
 
 Se uma imagem não existir, o site **não quebra**: a imagem é escondida e aparece só o fundo rosa-escuro do card (veja `tagImagem` no JavaScript).
 
